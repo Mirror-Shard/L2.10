@@ -11,67 +11,63 @@
 добавляться удвоенный результат вычислений функции circle().
 """
 
-import sys
-import math
+
+# Создаёт новую компанию с названием и персоналом
+def add():
+
+    # Персонал компании
+    staff = {}
+
+    # Название компании
+    name = str(input("Название компании: "))
+
+    # Организовать бесконечный цикл запроса команд.
+    while True:
+
+        # Запросить команду из терминала.
+        print("Введите new чтобы добавить должность и работников")
+        print("Или введите done если компания готова")
+        command = input(">>> ").lower()
+
+        # Добавляет должность, и сотрудников в эту должность
+        if command == "new":
+
+            post = str(input("Введите название должности: "))
+            workers = input("Введите имена сотрудников через пробел: ").split()
+            staff[post] = workers
+
+        # Или заканчивает создание компании
+        elif command == "done":
+            return name, staff
+
+        else:
+            print("! Команда не опознана !")
 
 
-# Создаёт цилиндр
-def make_cylinder():
+# Вывод информации о компании
+def list(company, **staff):
 
-    # Запрос радиуса и высоты
-    rad = float(input("Введите радиус: "))
-    hei = float(input("Введите высоту: "))
+    print(f"Название компании: {company}")
 
-    return {
-        'radius': rad,
-        'height': hei,
-    }
-
-
-# В функцию передаются именнованные аргументы и она вычисляет площадь цилиндра
-def calculate_cylinder(pick, **cylinder):
-
-    # Вычисляет площадь круга
-    def cylinder_circle(r):
-        circle = math.pi * r ** 2
-        return circle
-
-    # Вычисляет боковую сторону цилиндра
-    def cylinder_side(r, h):
-        side = 2 * math.pi * r * h
-        return side
-
-    # Вычисляет площадь всего цилиндра
-    def full_cylinder(r, h):
-        full = cylinder_side(r, h) + cylinder_circle(r) * 2
-        return full
-
-    # Если выбор 1
-    if pick == 1:
-        print("Площадь всего цилиндра равна:")
-        print(full_cylinder(cylinder['radius'], cylinder['height']))
-
-    # Если выбор 2
-    elif pick == 2:
-        print("Площадь боковой стороны цилиндра равна:")
-        print(cylinder_side(cylinder['radius'], cylinder['height']))
-
-    # Недопустимый выбор
-    else:
-        print("Введено недопустимое значение", file=sys.stderr)
-        exit(1)
+    for post, workers in staff.items():
+        print(f"{post} : {workers}")
 
 
 if __name__ == '__main__':
 
+    # Организовать бесконечный цикл запроса команд.
     while True:
 
-        # Создание цилиндра
-        cylinder = make_cylinder()
+        print("add - создать компанию, list - вывести информацию о компании")
 
-        # Запрос выбора
-        print("Вычислить площадь всего цилиндра или только боковой стороны?")
-        print("1 - всего цилиндра, 2 - только боковой стороны")
-        choice = int(input())
+        # Запросить команду из терминала.
+        command = input(">>> ").lower()
 
-        calculate_cylinder(choice, **cylinder)
+        if command == "add":
+            name, staff = add()
+
+        elif command == "list":
+            list(name, **staff)
+
+        else:
+            print("! Команда не опознана !")
