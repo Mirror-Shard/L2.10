@@ -35,6 +35,8 @@ def func(*args):
 
             return n
 
+    return None
+
 
 if __name__ == '__main__':
     print("Введите числа в массив через пробел,"
